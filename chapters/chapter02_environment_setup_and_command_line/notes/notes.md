@@ -49,6 +49,11 @@
 * **`mv`** - a command that moves and/or renames files and folders on macOS
              and Linux
 * **`rm`** - a command on both macOS and Windows that deletes files and folders
+* **Environment Variables** - often hold systemwide settings that every program would find useful. They are
+                              dynamic key-value pairs stored outside an application's source code that affect how
+                              running processes behave on a computer
+* **echo** - a command that's primary job is to display text or variables that you pass to it as arguments. It literally
+             "echoes" back whatever you type
 * ****
 
 
@@ -465,4 +470,69 @@ PosixPath('/Users/djweeaboo/dev/learning/beyond_the_basic_stuff_with_python/chap
 * This is useful if you want to start with a fresh-looking terminal window
 
 ## Environment Variables and PATH
-* 
+* This is an operating system (OS) concept. All running processes of a program, no matter the language in which it's 
+  written, have a set of variables called _environment variables_ that can store a string
+  * Ex). The `TEMP` environment variable folds the file path where any program can store temporary files
+* When the operating system runs a program (such as the command line), the newly created process receives its own copy
+  of the operating system's environment variables and values
+* Note, you can change a process's environment variables, but those changes apply only to the process, not the operating
+  system or any other process
+
+### *Viewing Environment Variables*
+* You can see a list of the terminal window's environment variables by running `env` on macOS and Linux or `set` on
+  Windows
+```terminaloutput
+COMMAND_MODE=unix2003
+SHELL=/bin/zsh
+TMPDIR=/var/folders/ty/39slb6ns1tnb5xk7mcrjc4nh0000gn/T/
+__CFBundleIdentifier=com.jetbrains.pycharm
+HOME=/Users/malachibrown
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.VH9MOCoAFx/Listeners
+XPC_SERVICE_NAME=0
+PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Applications/PyCharm.app/Contents/MacOS
+LOGNAME=malachibrown
+USER=malachibrown
+```
+* The text on the left side of the equal sign (=) is the environment variable name, and the text on the right side is
+  the string value
+* You can also view the value of a single environment variable with the `echo` command
+```terminaloutput
+malachibrown@Malachis-iMac notes % echo $HOME
+/Users/malachibrown
+```
+* You can think of the operating system's set of environment variables as the "master copy" from which a process copies
+  its environment variables
+
+### *Working with the PATH Environment Variable*
+* When you enter a command, like `python3` on macOS and Linux, the terminal checks for a program with that name in the
+  folder you're currently in. If it doesn't find it there, it will check the folders listed in the `PATH`
+  environment variable
+* Because environment variables can contain only a single string value, adding multiple folder names to the `PATH`
+  environment variable requires using a special format:
+  * On macOS and Linux, colons separate the folder name
+```terminaloutput
+malachibrown@Malachis-iMac notes % echo $PATH
+/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin:/System
+/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr
+/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd
+/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Applications/PyCharm.app/Contents/MacOS
+```
+* The order of the folder names is important because if you have two files with the same filename, the program will run
+  in the order that the folder appears first in the `PATH` environment variable
+
+### *Changing the Command Line's PATH Environment Variable*
+* You can change the current terminal window's `PATH` environment variable to include additional folders
+* To temporarily add folders to `PATH` on macOS and Linux for testing, you can run:
+```terminaloutput
+malachibrown@Malachis-iMac notes % PATH=/new_folder:$PATH
+malachibrown@Malachis-iMac notes % echo $PATH
+/new_folder:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin...
+```
+* The `$PATH` part expands to the current value of the `PATH` environment variable, so you're adding to the new folder
+  and a colon to the existing `PATH` value
+* This method for adding folders to `PATH` apply only to the current terminal window and any programs run from it after
+  the addition. If you open a new terminal window, it won't have your changes
+* Permanently adding folders requires changing the operating system's set of environment variables
+
+### *Permanently Adding Folders to PATH on Windows*
+*
