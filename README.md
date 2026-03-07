@@ -1,4 +1,4 @@
-# Beyond the Basic Stuff with Python Work
+# Beyond the Basic Stuff with Python - Work
 
 ### Chapter-by-chapter notes, exercises, and projects completed while working through _Beyond the Basic Stuff with Python_.
 
