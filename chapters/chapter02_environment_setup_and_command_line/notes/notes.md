@@ -54,6 +54,13 @@
                               running processes behave on a computer
 * **echo** - a command that's primary job is to display text or variables that you pass to it as arguments. It literally
              "echoes" back whatever you type
+* **`.command`** - a plain text file that contains shell commands associated with the Terminal application. When you
+                   double-click a `.command` file in Finder, it automatically opens a Terminal window and executes the
+                   command(s) inside it, as if you typed them manually
+* **`chmod`** - the change mode command changes the permissions of a file
+* **`u`** - the symbol represents a permission category meaning - user (the file owner)
+* **`+`** - the symbol means - add this permission
+* **`x`** - means execute permission
 * ****
 
 
@@ -126,7 +133,6 @@ PosixPath('/Users/djweeaboo/dev/learning/beyond_the_basic_stuff_with_python/chap
   program
 * macOS way of viewing a list of running processes:
   * Applications > Utilities > Activity Monitor.app
-* 
 
 ## The Command Line
 * The _command line_ (CLI) is a text-based program that lets your enter 
@@ -534,5 +540,41 @@ malachibrown@Malachis-iMac notes % echo $PATH
   the addition. If you open a new terminal window, it won't have your changes
 * Permanently adding folders requires changing the operating system's set of environment variables
 
-### *Permanently Adding Folders to PATH on Windows*
-*
+### *Permanently Adding Folders to PATH on macOS*
+* To add folders to the `PATH` environment variables for all terminal windows on macOS and Linux, you'll need to modify
+  the _.zshrc_ text file in your home folder and add the following lines:
+```terminaloutput
+export PATH=/newFolder:$PATH
+```
+* This line modifies `PATH` for all future terminal windows
+
+## Running Python Programs Without the Command Line
+* Windows has the Start menu, macOS has the Finder and Dock, and Ubuntu Linux has Dash
+* Rather than running a _.py_ file by double-clicking, which will run the file from the Python Interactive Shell, or 
+  running a _.py_ file from an IDE or command-line, you can instead set up your Python programs to easily run them from
+  your operating system's launcher, just like other applications you've installed
+
+### *Running Python Programs on macOS*
+* On macOS, you can create a shell script to run you Python scripts by creating a text file with the _.command_ file
+  extension: 
+
+**Step 1 - Create & Save a launcher shell script using the `.command` file extension**
+```text
+touch ~/run_script.command
+open -e ~/run_script.command
+
+#!/usr/bin/env zsh
+python3 /Users/malachibrown/path/to/test_script.py
+```
+
+**Step 2 - Make the launcher executable**
+```text
+chmod u+x run_script.command
+```
+* The full command above means - give the file owner permission to execute the file as a program
+* Without execute permission, macOS treats the file like text, so double-clicking would either:
+  * open the file in a text editor
+  * or refuse to run it
+* Adding `x` tells the system:
+  * This file is allowed to run like a program
+
