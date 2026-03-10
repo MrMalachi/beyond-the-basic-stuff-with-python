@@ -1,0 +1,45 @@
+Part 1 - Multiple Choice
+1. B
+2. B
+3. C
+4. B - PATH only tells the shell where to look for commands 
+5. B
+6. B
+7. B
+8. B - The -c flag lets you run Python code directly from the terminal
+9. A - The history command allows you to look at previous command history, as well as, the up arrow key
+10. A
+
+Part 2 - Short Answer
+1. The difference between an absolute path and a relative path is how the path is written. An absolute path displays the full path from root directory, while a relative path is only relative to the cwd.
+2. Environment variables store configuration values used by the operating system and programs. Ex). - PATH variable is where commands are located, HOME variable is the user's home directory, and SHELL is the default shell. 
+3. The role of the PATH variable when typing a command like python or git is to allow the shell to reach through the directories listed in PATH to find the executable.
+4. It is helpful to run programs from the command line instead of double-clicking them because some programs may not be able to run by just double-clicking. Also the command line lets you: pass arguments, automate tasks, run scripts, and debug errors
+
+Part 3- Practical Exercises
+1. pwd - malachibrown@Malachis-iMac learning % pwd                                           
+/Users/malachibrown/dev/learning
+
+2. malachibrown@Malachis-iMac learning % ls 
+beyond-the-basic-stuff-with-python      python_crash_course
+malachibrown@Malachis-iMac learning % cd ..   
+malachibrown@Malachis-iMac dev % ls
+learning        python_work
+malachibrown@Malachis-iMac dev % cd python_work/projects/budget_mate 
+malachibrown@Malachis-iMac budget_mate % ls
+README.md       __pycache__     bm_venv         core            data            docs            main.py         secrets         services
+
+3. malachibrown@Malachis-iMac budget_mate % python3 main.py 
+
+Welcome to Budget-Mate: A Program Designed Around Money Management™
+
+--- BUDGET-MATE MENU ---
+1. Add earnings
+2. View Budget Mate summary
+3. Exit
+Select an option: 
+
+4. (bb_venv) malachibrown@Malachis-iMac beyond-the-basic-stuff-with-python % python3 -c "print('Hello from the command line!')"
+
+5. malachibrown@Malachis-iMac budget_mate % echo $PATH
+/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Applications/PyCharm.app/Contents/MacOS
