@@ -8,12 +8,7 @@
 * **Style Guide** - a document that outlines a set of formatting rules a software project should follow
 * **Indentation** - the whitespace at the beginning of a code line
 * **Vertical Spacing** - the placement of blank lines between lines of code
-* ****
-
-
-
-
-
+* **`--check`** - a flag used to check formatting without modifying
 
 ## How to Lose Friends and Alienate Co-Workers
 * Although you might start out coding on your own, programming is often a collaborative activity. If several programmers
