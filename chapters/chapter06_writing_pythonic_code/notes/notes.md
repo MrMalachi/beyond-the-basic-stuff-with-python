@@ -11,7 +11,12 @@
 * **Shallow Copy** - a new compound object (like a list or dictionary) is created, but populates it with references to 
                      the objects found in the original. _Basically, any changes made to a copy of the object do NOT 
                      reflect in the original object_
-* ****
+* **Interpolate** - to insert (something of a different nature) into something else. In this context, a formatted string
+* **Ternary Expression** - a _conditional expression_ is a concise, one-line way to evaluate a condition and return one 
+                           of two values
+* **`in`** - a membership operator used to determine if a specific value exits within a collection or sequence such as 
+             a tuple 
+* **`timeit`** - a built-in module used to accurately measure the execution time of small code snippets
 
 ## The Zen of Python
 ```python
@@ -167,4 +172,165 @@ False
 * Keep in mind, using both of these methods create _shallow copies_
 
 ## Pythonic Ways to Use Dictionaries
+* Dictionaries are the core of many Python programs because of the flexibility that key-vale pairs provide by mapping 
+  one piece of data to another
 
+### *Use get() and setdefault() with Dictionaries*
+* Trying to access a dictionary key that doesn't exist results in a `KeyError`, so programmers often write unPythonic 
+  code to avoid the situation like this:
+```python
+# UnPythonic Example 
+number_of_pets = {"dogs": 2}
+if "cats" in number_of_pets:  # Check if 'cats' exist as a key.
+    print("I have", number_of_pets["cats"], "cats.")
+else:
+    print("I have 0 cats.")
+```
+* This pattern happens so often that dictionaries have a get() method that allows you to specify a default value to 
+  return when a key doesn't exist in the dictionary
+```python
+# Pythonic Example Using get() method
+number_of_pets = {"dogs": 2}
+print(f"I have {number_of_pets.get("cats", 0)} cats.")
+```
+* The `number_of_pets.get("cats", 0)` call checks whether the key `'cats'` exists in the `number_of_pets` dictionary. If
+  it does, the method returns the value for the `'cats'` key. If it doesn't, it returns the second argument, `0`, 
+  instead
+* Using the `get()` method to specify a default value to use for nonexistent keys is shorter and more readable than 
+  using `if-else` statements
+* Conversely, you might want to set a default value if a key doesn't exist
+* For example, if the dictionary in `number_of_pets` doesn't have a `'cats'` key, the instruction 
+  `number_of_pets["cats"] += 10` would result in a `KeyError` error. So you might want to add code that checks for the 
+  key's absence AND sets a default value:
+```python
+# UnPythonic Example
+number_of_pets = {"dogs": 2}
+if "cats" not in number_of_pets:
+    number_of_pets["cats"] = 0
+
+number_of_pets["cats"] += 10
+number_of_pets["cats"]
+```
+* But this pattern is also common, so dictionaries have a more Pythonic `setdefault()` method. The following code is 
+  equivalent to the previous:
+```python
+# Pythonic Example Using setdefault() method
+number_of_pets = {"dogs": 2}
+number_of_pets.setdefault("cats", 0)  # Does nothing if 'cats' exists.
+
+number_of_pets["cats"] += 10
+number_of_pets["cats"]
+```
+* If you're writing `if` statements that check whether a key exists in a dictionary and sets a default value if the key 
+  is absent, use the `setdefult()` method instead
+
+### *Use collections.defaultdict* for Default Values
+* You can use the `collections.defaultdict` class to eliminate `KeyError` errors entirely
+* This class lets you create a default dictionary by importing the `collections` module and calling 
+  `collections.defaultdict()`, passing it a data type to use for a default value
+* For example, yby passing `int` to `collections.defaultdict()`, you can make a dictionary-like object that uses `0` 
+  for a default value of nonexistent keys:
+```shell
+>>> import collections
+>>> scores = collections.defaultdict(int)
+>>> scores
+defaultdict(<class 'int'>, {})
+>>> scores["John"] += 1  # No need to set a value for the 'John' key first.
+>>> scores
+defaultdict(<class 'int'>, {'John': 1})
+>>> scores["Zoe"]  # No need to set a value for the 'Zoe' key first.
+0
+>>> scores["Zoe"] += 40 
+>>> scores
+defaultdict(<class 'int'>, {'John': 1, 'Zoe': 40})
+```
+* You can also pass `list` to use an empty list as the default value:
+```shell
+>>> import collections
+>>> books_read_by = collections.defaultdict(list)
+>>> books_read_by["John"].append("Dune Book 1")
+>>> books_read_by["John"].append("The Black Box")
+>>> len(books_read_by["John"])
+2
+>>> len(books_read_by["Zoe"])  # The default is an empty list.
+0
+```
+* If you need a default for every possible key, it's much easier to use `collections.defaultdict()` that to use a 
+  regular dictionary and constantly call the `setdefault` method
+
+### *Use Dictionaries Instead of a switch Statement*
+* A switch statement in other programming languages is a sort of `if-elif` chain that runs code based on which one of 
+  many values a specific variable contains
+* Some Python programmers prefer to set up a dictionary value instead of using `if-elif` statements because it's more 
+  concise
+```python
+holiday = {"Winter": "New Year's Day",
+           "Spring": "May Day",
+           "Summer": "Juneteenth",
+           "Fall": "Halloween"}.get("season", "Personal day off")
+```
+* Using a dictionary will result in more concise code, BUT it can also make your code harder to read
+
+## Conditional Expression: Python's "Ugly" Ternary Operator
+* _Ternary operators_ (officially called _conditional expressions_), evaluate an expression to one of two values based 
+  on a condition. Normally you would do this with a Pythonic `if-else` statement:
+```shell
+>>> # Pythonic Example
+>>> condition = True
+>>> if condition:
+...     message = "Access granted"
+... else:
+...     message = "Access denied"
+... 
+>>> message
+'Access granted'
+```
+* It is called _ternary_ because it consists of exactly three conditions:
+```python
+age = 20
+status = "Adult" if age >= 18 else "Minor"
+```
+* Conditional expressions aren't exactly Pythonic, but they're not UnPythonic either
+
+## Working with Variable Values
+* You'll often need to check and modify the values that variables store. Python has several ways of doing this
+
+### *Chaining Assignment and Comparison Operators*
+* When you have to check whether a number is within a certain range, you might use the Boolean `and` operator like this:
+```python
+# UnPythonic Example
+if 42 < spam and spam < 99:
+```
+* But Python lets you chain comparison operators so you don't need to use the `and` operator. The following code is 
+  equivalent to the previous example:
+```python
+# Pythonic Example
+if 42 < spam < 9:
+```
+* The same applies to chaining the `=` assignment operator. You can set multiple variables to the same value in a single
+  line of code:
+```shell
+# Pythonic Example
+>>> spam = eggs = bacon = "string"
+>>> spam == eggs == bacon == "string"
+True
+```
+* Chaining operators is a small but useful shortcut in Python, but usingn them incorrectly can cause problems leading 
+  to bugs
+
+### *Checking Whether a Variable Is One of Many Values*
+* You may come across needing to check whether a single variable is one of multiple possible values. You can do this 
+  using the `or` operator:
+```python
+>>> spam == "cat" or spam == "dog" or spam == "moose"
+```
+* But all of those redundant `spam ==` parts make this expression a bit unwieldy
+* Instead, you cn put multiple values into a tuple and check for whether a variable's value exists in that tuple using 
+  the `in` operator:
+```python
+>>> # Pythonic Example
+>>> spam = "cat"
+>>> spam in ("cat", "dog", "moose")
+True
+```
+* Not only is this idiom easier to understand, it's also slightly faster, according to `timeit`
