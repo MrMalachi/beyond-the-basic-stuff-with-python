@@ -103,7 +103,18 @@
                                 (runs instructions on the CPU)
 * **Library** - a collection pre-written, reusable code that developers can "borrow" to perform common tasks instead of 
                 having to write everything from scratch
-* ****
+* **Standard Library** - a collection pf pre-written code that is bundled with a programming language's installation and
+                         available to all developers by default
+* **Framework** - a pre-built, structured foundation of code, tools, and libraries that simplifies software development 
+                  by providing a standardized reusable skeleton
+* **Inversion of Control** - the flow of the program is managed by an external framework or container rather than the 
+                             custom code itself
+* **Software Development Kit (SDK)** - a bundled set of tools; libraries, documentation, code samples, and debuggers 
+                                       that enables developers to create applications for specific platforms
+* **Engine** - a software engine is a core component of a complex software system, such as game engines, physics 
+               engines, recommendation engines, database engines, chess engines, and search engines
+* **Application Programming Interface (API)** - a set of rules and protocols that allows different software applications
+                                                to communicate and share data with each other
 
 ## Definitions
 * Although computer jargon can be confusing and intimidating for new programmers, it's a necessary shorthand because 
@@ -629,3 +640,20 @@ Rufus is a dog
 * Using other people's code is a great time-saver, and you can often find code to use packaged as libraries, frameworks,
   SDKs, engines, or APIs
 * A [_library_](#glossary) is a generic term for a collection of code made by a third party
+* A library can contain functions, classes, or other pieces of code for a developer to use
+* The developer doesn't need to know how the library code works; they only need to know how to call or interface with 
+  the code in a library
+* A [_standard library_](#glossary), such as the Python standard library, is a code library that is assumed to be 
+  available to all implementations of a programming language
+* A [_framework_](#glossary) is a collection of code that operates with [_inversion of control_](#glossary); the 
+  developer creates functions that the framework will call as needed, as opposed to the developer's code calling 
+  functions in the framework 
+* Inversion control is often as, "don't call us, we'll call you"2
+* A [_Software Development Kit_ (SDK)](#glossary) includes code libraries, documentation, and software tools to assist 
+  in creating applications for a particular operating system or platform
+  * Ex). Android SDK or iOS SDK for mobile apps for Android and iOS, or the Java Development Kit (JDK) for creating 
+    applications for the Java Virtual Machine (JVM)
+* An [_engine_](#glossary) is a large, self-contained system that can be externally controlled by the developer's 
+  software. Developers usually call functions in an engine to perform a large, complex task
+* An [_application programming interface_ (API)](#glossary) is the public-facing interface for a library, SDK, 
+  framework, or engine. The API specifies how to call the functions or make requests of the library to access resources2
