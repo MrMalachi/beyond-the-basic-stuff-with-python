@@ -37,7 +37,7 @@ def display_student_quiz_scores():
         print(f"{name} - {score}%")
 
 
-def calculate_highest_score():
+def calculate_highest_score(score):
     pass
 
 
