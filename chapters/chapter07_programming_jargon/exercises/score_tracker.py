@@ -29,17 +29,16 @@ def input_student_quiz_score():
 
 
 def calculate_highest_score():
-    highest = max(student_scores["score"])
-
-    print(highest)
+    """Return the highest quiz score."""
+    return max(item["score"] for item in student_scores)
 
 
 def calculate_lowest_score():
-    pass
+    return min(item["score"] for item in student_scores)
 
 
 def calculate_average_score():
-    pass
+    return sum(item["score"] / len(student_scores) for item in student_scores)
 
 
 def display_student_quiz_scores():
@@ -51,7 +50,14 @@ def display_student_quiz_scores():
         score = item["score"]
         print(f"{name}: {score}%")
 
-    print(f"\nHighest Score: {score}")
+    highest_score = calculate_highest_score()
+    print(f"\nHighest Score: {highest_score}%")
+
+    lowest_score = calculate_lowest_score()
+    print(f"Lowest Score: {lowest_score}%")
+
+    average_score = calculate_average_score()
+    print(f"Average Score: {average_score}%")
 
 
 def run_score_tracker():
@@ -63,8 +69,6 @@ def run_score_tracker():
         student_scores.append({"name": name, "score": score})
 
     display_student_quiz_scores()
-    calculate_highest_score()
-
 
 
 run_score_tracker()
