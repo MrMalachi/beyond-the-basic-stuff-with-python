@@ -19,7 +19,7 @@ def input_expense_amount():
     """Prompt user to enter the expense amount."""
     while True:
         try:
-            amount = float(input("Enter amount: $").strip())
+            amount = round(float(input("Enter amount: $").strip()))
         except ValueError:
             print("\nThe expense amount must be a whole or mixed number...")
         else:
@@ -39,23 +39,25 @@ def input_expense_description():
 
 def calculate_total_expenses():
     """Calculate the total price of expenses entered."""
-    total = 0
-    total += (expense["amount"] for expense in expenses)
+    total = sum(expense["amount"] for expense in expenses)
     return total
 
 
 def calculate_category_expenses():
     """Calculate the total expenses for each category."""
+    category = expenses[0]["category"]
+    amount = expenses[0]["amount"]
+    categorical_expense_total = sum(amount for category in expenses)
+    return categorical_expense_total
 
 
-
-def display_expense_summary(total, category_totals=0):
+def display_expense_summary(total, category_expense_total):
     """Output a neatly formatted display of the user's expenses."""
     print("--- Expense Summary ---")
-    print(f"Total Spent: ${total}")
+    print(f"Total Spent: ${total:.2f}")
 
-    print("By Category:")
-
+    print("\nBy Category:")
+    print(f"{category_expense_total}")
 
 
 def run_expense_logger():
@@ -72,7 +74,8 @@ def run_expense_logger():
         })
 
     total = calculate_total_expenses()
-    display_expense_summary(total)
+    categorical_expense_total = calculate_category_expenses()
+    display_expense_summary(total, categorical_expense_total)
 
 
 run_expense_logger()
