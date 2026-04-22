@@ -8,7 +8,7 @@ expenses = []
 def input_expense_category():
     """Prompt user for expense category."""
     while True:
-        category = input("\nEnter expense category (or 'done'): ").strip()
+        category = input("\nEnter expense category (or 'done'): ").strip().lower()
         if category == "":
             print("\nYou must enter an expense category...")
         else:
@@ -45,19 +45,37 @@ def calculate_total_expenses():
 
 def calculate_category_expenses():
     """Calculate the total expenses for each category."""
-    category = expenses[0]["category"]
-    amount = expenses[0]["amount"]
-    categorical_expense_total = sum(amount for category in expenses)
-    return categorical_expense_total
+    category_totals = {}
+
+    for expense in expenses:
+        category = expense["category"]
+        amount = expense["amount"]
+
+        if category not in category_totals:
+            category_totals[category] = amount  # Store first value if not exist.
+        else:
+            category_totals[category] += amount # Add to existing amount
+
+    return category_totals
 
 
-def display_expense_summary(total, category_expense_total):
+def calculate_largest_expense():
+    """Calculate the largest expense amount."""
+    largest_expense = max(expense["amount"] for expense in expenses)
+    return largest_expense
+
+
+def display_expense_summary(total, categorical_total_expense, largest_expense):
     """Output a neatly formatted display of the user's expenses."""
     print("--- Expense Summary ---")
     print(f"Total Spent: ${total:.2f}")
 
     print("\nBy Category:")
-    print(f"{category_expense_total}")
+    for category, amount in categorical_total_expense.items():
+        print(f"{category.title()}: ${amount}")
+
+    print("\nLargest Expense:")
+    print(f"{largest_expense}")
 
 
 def run_expense_logger():
@@ -74,8 +92,9 @@ def run_expense_logger():
         })
 
     total = calculate_total_expenses()
-    categorical_expense_total = calculate_category_expenses()
-    display_expense_summary(total, categorical_expense_total)
+    categorical_total_expense = calculate_category_expenses()
+    largest_expense = calculate_largest_expense()
+    display_expense_summary(total, categorical_total_expense, largest_expense)
 
 
 run_expense_logger()
